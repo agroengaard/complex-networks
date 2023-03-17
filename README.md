@@ -1,2 +1,2 @@
-# complex_networks
+# Complex Networks
 A repository for containing complex networks exercises
