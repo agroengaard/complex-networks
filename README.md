@@ -20,7 +20,11 @@ Below are some plotted results for the different growth types. The explanation f
 - The size of the node scales with the number of links attached to it.
 - N, is the number of nodes in the network.
 - The clustering coefficient, C, is a "measure for local connectedness between neighbouring
-nodes".
+nodes", and is calculated as:
+
+```math
+C = C_N/N
+```
 
 ## 1. Random Network growth
 
