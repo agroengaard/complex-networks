@@ -30,7 +30,7 @@ And for the whole network we can calculate an average clustering coefficient as:
 ```math
 C = \frac{ \sum C_i}{N}
 ```
-If all nodes are connected to each other directly with a link, this value is 1.
+If all nodes are connected to each other directly with a link, this value is 1, i.e. 100% clustering.
 
 
 ## 1. Random Network growth
