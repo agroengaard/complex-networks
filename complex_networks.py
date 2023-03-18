@@ -270,24 +270,24 @@ if __name__ == "__main__":
 # =============================================================================
     
  
-    n2 = Network("preferential")
-    n2.grow(97)
-    n2.calculate_numerical_probability_distribution()
-    n2.analytical_distribution()
-    n2.calculate_clustering_coefficient()
-    n2.plot_network()  
-    n2.plot_distribution()
+# =============================================================================
+#     n2 = Network("preferential")
+#     n2.grow(97)
+#     n2.calculate_numerical_probability_distribution()
+#     n2.analytical_distribution()
+#     n2.calculate_clustering_coefficient()
+#     n2.plot_network()  
+#     n2.plot_distribution()
+# =============================================================================
       
-# =============================================================================
-#     n3 = Network("modified preferential")
-#     n3.grow(97)
-#     n3.calculate_numerical_probability_distribution()
-#     n3.analytical_distribution()
-#     n3.calculate_clustering_coefficient()
-#     n3.plot_network()  
-#     n3.plot_distribution()     
-#       
-# =============================================================================
+    n3 = Network("modified preferential")
+    n3.grow(97)
+    n3.calculate_numerical_probability_distribution()
+    n3.analytical_distribution()
+    n3.calculate_clustering_coefficient()
+    n3.plot_network()  
+    n3.plot_distribution()     
+      
       
       
         
