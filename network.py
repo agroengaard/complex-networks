@@ -21,7 +21,7 @@ class NetworkGrowthAnalysis:
     ||    n_growth_it (int) : Number of growth iterations                    ||
     ||=======================================================================||
     """
-    def __init__(self, network_type : str, n_growth_it : int):
+    def __init__(self, network_type : str, n_growth_it : int, plot=True):
         
         self.network_types = ["random", "preferential", 
                          "modified preferential", "random modified"]
@@ -37,8 +37,9 @@ class NetworkGrowthAnalysis:
         self.n.calculate_numerical_probability_distribution()
         self.n.analytical_distribution()
         self.n.calculate_clustering_coefficient()
-        self.n.plot_network()
-        self.n.plot_distribution()
+        if plot:
+            self.n.plot_network()
+            self.n.plot_distribution()
 
 
 
