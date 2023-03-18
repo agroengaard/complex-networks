@@ -19,12 +19,19 @@ Below are some plotted results for the different growth types. The explanation f
 - The number in each node indicates the order in which each particular node was created.
 - The size of the node scales with the number of links attached to it.
 - N, is the number of nodes in the network.
-- The clustering coefficient, C, is a "measure for local connectedness between neighbouring
+- The clustering coefficient, C, for each node is a "measure for local connectedness between neighbouring
 nodes", and is calculated as:
 
 ```math
-C = C_N/N
+C_i = \frac{1}{k_i(k_i-1)} 
 ```
+And for the whole network we can calculate an average clustering coefficient as:
+
+```math
+C = \frac{ \sum C_i}{N}
+```
+If all nodes are connected to each other directly with a link, this value is 1.
+
 
 ## 1. Random Network growth
 
