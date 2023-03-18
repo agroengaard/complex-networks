@@ -11,7 +11,7 @@ Here different network growth types are investigated:
       This works by drawing n random samples from the links vector and attach the new node to what the links is attached to.
       Thus nodes who already have many links will experience more growth.
   3. Modified Preferential growth
-  4. Random modified growth
+  4. Random modified growth: Network growth process with random link attachment
 
 The clustering coefficient, C, is a "measure for local connectedness between neighbouring
 nodes"
