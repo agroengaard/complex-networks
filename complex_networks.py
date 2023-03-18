@@ -155,7 +155,7 @@ class Network:
         | Method for plotting the distribution of the number of links         |
         -----------------------------------------------------------------------
         """
-        fig, ax = plt.subplots(figsize = (9,9)) 
+        fig, ax = plt.subplots(figsize = (6,6)) 
         
         ax.set_facecolor('#212946')
      
@@ -214,7 +214,7 @@ class Network:
         G.add_nodes_from(Nodes)
         G.add_edges_from(self.link_pairs)
       
-        fig = plt.figure(figsize=(9, 9))
+        fig = plt.figure(figsize=(6, 6))
         ax = fig.add_subplot(111)
   
       
@@ -245,9 +245,9 @@ class Network:
         ax.text(0.05, 0.95, textstr, transform=ax.transAxes, 
                 fontsize=14, verticalalignment='top', color="white", bbox=props)
         plt.title("Network visualization", fontproperties= au.AUb, 
-                  fontsize=18, color=au.AUlightblue)
+                  fontsize=18, color=au.AUlightblue, y=1.12)
         plt.suptitle(self.growth_type.capitalize() + " Network", 
-                     fontproperties= au.AUb, y=0.92, 
+                     fontproperties= au.AUb, y=0.87, 
                      fontsize=14, color=au.AUlightblue)
   
         ax.set_facecolor('#212946')
@@ -276,7 +276,9 @@ if __name__ == "__main__":
 #     n2.calculate_clustering_coefficient()
 #     n2.plot_network()  
 #     n2.plot_distribution()
-#       
+# =============================================================================
+      
+# =============================================================================
 #     n3 = Network("modified preferential")
 #     n3.grow(97)
 #     n3.calculate_numerical_probability_distribution()
@@ -284,8 +286,8 @@ if __name__ == "__main__":
 #     n3.calculate_clustering_coefficient()
 #     n3.plot_network()  
 #     n3.plot_distribution()     
+#       
 # =============================================================================
-      
       
       
         
