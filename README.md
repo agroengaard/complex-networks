@@ -27,7 +27,6 @@ nodes".
 <p float="center">
   <img src="./docs/1_random_network.png" width="400" />
   <img src="./docs/1_random_network_distribution.png" width="400" /> 
- 
 </p>
 
 
@@ -36,7 +35,6 @@ nodes".
 <p float="center">
   <img src="./docs/2_preferential_network.png" width="400" />
   <img src="./docs/2_preferential_network_distribution.png" width="400" /> 
- 
 </p>
 
 ## 3. Modified Preferential Growth
@@ -44,7 +42,6 @@ nodes".
 <p float="center">
   <img src="./docs/3_modified_preferential_network.png" width="400" />
   <img src="./docs/3_modified_preferential_network_distribution.png" width="400" /> 
- 
 </p>
 
 
@@ -52,6 +49,5 @@ nodes".
 
 <p float="center">
   <img src="./docs/4_random_modified_network.png" width="400" />
-  <img src="./docs/4_random_modified_distribution.png" width="400" /> 
- 
+  <img src="./docs/4_random_modified_network_distribution.png" width="400" /> 
 </p>
