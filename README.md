@@ -45,7 +45,7 @@ nodes".
 </p>
 
 
-## 4. Random Mofified Growth
+## 4. Random Modified Growth
 
 <p float="center">
   <img src="./docs/4_random_modified_network.png" width="400" />
