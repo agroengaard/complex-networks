@@ -30,7 +30,7 @@ nodes"
 </p>
 
 
-## 1. Random Network growth
+## 2. BA scale-free network growth
 
 <p float="center">
   <img src="./docs/2_preferential_network.png" width="400" />
