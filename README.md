@@ -17,9 +17,10 @@ Here different network growth types are investigated:
 
 Below are some plotted results for the different growth types. The explanation for these plots are:
 - The number in each node indicates the order in which each particular node was created.
-- N, is the number of nodes in the network
+- The size of the node scales with the number of links attached to it.
+- N, is the number of nodes in the network.
 - The clustering coefficient, C, is a "measure for local connectedness between neighbouring
-nodes"
+nodes".
 
 ## 1. Random Network growth
 
