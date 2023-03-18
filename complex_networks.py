@@ -4,6 +4,7 @@
 import time
 import numpy as np
 import random as rm
+import matplotlib
 import matplotlib.pyplot as plt
 import networkx as nx
 import aulibrary as au
@@ -20,15 +21,16 @@ class Network:
         
         print("Network initialized")
         
-        self.growth_type = growth_type
+        self.growth_type = growth_type                   
+        
         self.links = [1, 2, 1, 3, 2, 3]                  # Initial links vector ("Seed")
         self.total_growth = 0                            # Number of total growth iterations this network has experienced
-        self.m     = 2                                   # Number of new links pr. new node
+
         self.N     = 3                                   # Number of inital nodes
         self.L     = 3                                   # Number of initial links
         self.lamb3 = 1                                   # Lambda value (Problem 3)
         
-    def grow(self, growth_iterations):
+    def grow(self, add_growth_iterations, m=2):
         """
         -----------------------------------------------------------------------
         | Method for growing the network by the growth type chosen            |  
@@ -37,15 +39,18 @@ class Network:
         | INPUT:                                                              |
         |    growth_iterations (int) : The number of new growth iterations    |
         |                              to apply to the network                |
+        |    m (int) : Number of new links per new node. Default to 2         |
         |_____________________________________________________________________|
         """
         print("Growing network by {} growth".format(self.growth_type))
         
-        self.total_growth += growth_iterations
+        self.add_growth_iterations = add_growth_iterations
+        self.m     = m                                  # Number of new links pr. new node
+        self.total_growth += self.add_growth_iterations
         
         new = np.empty((self.m*2,), int)                                       # Initializing the New links vector
 
-        for i in range(0, growth_iterations):   
+        for i in range(0, self.add_growth_iterations):   
             self.N += 1                                                        # Making a new node
             self.L += self.m                                                   # Total links increases by m  
             Ln = [0]*self.m                                                    # Resetting nodes to be linked every it.      
@@ -82,7 +87,7 @@ class Network:
         
         start = time.time()
         p = dict([[x, self.ki.count(x)] for x in set(self.ki)])
-        p_keys   = list(p.keys())
+        self.p_keys   = list(p.keys())
         N_k = list(p.values())
         self.p_k = np.zeros(len(N_k))
         for i in range(0,len(N_k)):
@@ -91,6 +96,29 @@ class Network:
         end = time.time()
         print("Numerical probability distribution, calculation time:")
         print(end - start)
+
+    def analytical_distribution(self):
+        
+   
+        self.k_a = np.linspace(1, self.N, self.N)                 # Vector of k's to plot 
+        
+        if self.growth_type == "random":
+           
+            a = 1/(self.m+1)*((self.m+1)/self.m)**self.m              # The a constant
+            lam = np.log((self.m+1)/self.m)                           # The lambda constant
+            self.P_k = a*np.exp(-lam*self.k_a)                        # Probability
+        
+        elif self.growth_type == "preferential":
+            gam2 = np.linspace(1,2,5) 
+            gam2 = 2
+            self.P_k2 = self.k_a**(-gam2)
+            
+ 
+        elif self.growth_type == "modified preferential":
+            gamma = 3 + self.lamb3/self.m
+            self.B = 10
+            self.E = 0
+        #P_k3 = C*k_a**(-gamma)
 
 
     def calculate_clustering_coefficient(self):
@@ -121,6 +149,54 @@ class Network:
         print("Clustering Coefficient calculation time:")
         print(end - start)
         
+    def plot_distribution(self):  
+        """
+        -----------------------------------------------------------------------
+        | Method for plotting the distribution of the number of links         |
+        -----------------------------------------------------------------------
+        """
+        fig, ax = plt.subplots(figsize = (9,9)) 
+        
+        ax.set_facecolor('#212946')
+     
+        fig.set_facecolor('#212946')
+        
+        if self.growth_type == "random":
+            plt.loglog(self.k_a,self.P_k,label='Analytical distribution', color="#00ff9f")
+            
+        elif self.growth_type == "preferential":
+            plt.loglog(self.k_a, self.P_k2,label='Analytical distribution', color="#00ff9f")
+            
+        elif self.growth_type == "modified preferential":
+            def pk3(k_a,lamb3,B,E):
+                gamma = 3 + lamb3/self.m
+                #gamma = 2
+                return B*k_a**(-gamma)+E
+
+            plt.loglog(self.k_a, pk3(self.k_a, self.lamb3, self.B, self.E),label='Analytical distribution', color="#00ff9f")
+            
+        plt.loglog(self.p_keys, self.p_k, '.', label='Numerical distribution \nfor N = {}'.format(self.N), color=au.AUpink)
+        plt.xlabel('Number of links, k')
+        plt.ylabel('Probability, $P_k$')
+        plt.title("{} Network: Analytical and numerical distribution".format(self.growth_type.capitalize()), 
+                  fontproperties= au.AUb, 
+                  fontsize=13, color=au.AUlightblue)
+        
+        ax.spines['bottom'].set_color(au.AUblue3)
+        ax.spines['top'].set_color(au.AUblue3)
+        ax.spines['left'].set_color(au.AUblue3)
+        ax.spines['right'].set_color(au.AUblue3)
+        ax.xaxis.label.set_color(au.AUblue3)
+        ax.yaxis.label.set_color(au.AUblue3)
+        ax.tick_params(axis='x', colors=au.AUblue3)
+        ax.tick_params(axis='y', colors=au.AUblue3)
+ 
+        plt.grid(True, which="both", ls="-", color = au.AUblues)
+      
+        plt.legend()
+        fig.tight_layout()
+        plt.show()
+    
       
     def plot_network(self):
         """
@@ -138,36 +214,45 @@ class Network:
         G.add_nodes_from(Nodes)
         G.add_edges_from(self.link_pairs)
       
-        fig = plt.figure(figsize=(9, 9), facecolor='#212946')
+        fig = plt.figure(figsize=(9, 9))
         ax = fig.add_subplot(111)
-        ax.set_facecolor('#212946')
-          
+  
       
  
-    #    fig.patch.set_facecolor('black')
-    #    ax.set_facecolor(au.AUblue)
         pos = nx.spring_layout(G, iterations=200)
         options = {
             "node_color": range(self.N),
             "with_labels": True,
-           # "line_color": "grey",
-            "width": 0.2,
+            "edge_color": "#00b8ff",
+            "font_color": "white",
+            "width": 0.5,
             "node_size": msize,
-            "cmap": au.AUBlueBlue_r,
+            "cmap":  matplotlib.cm.cool_r,
             "font_family": "AU Passata",
-            "font_color": "black",
-            "font_weight": "bold"
+            "font_color": "white",
+            "font_weight": "bold",
+            "font_size": 10
         }
-        nx.draw(G, pos, **options,alpha=0.7)
+        nx.draw(G, pos, **options, alpha=0.7)
         textstr = '\n'.join((
                r'$\mathrm{N}=%.0f$' % (self.N, ),
                r'$\mathrm{C}=%.2f$' % (self.C, ),
         #      r'$\mathrm{D}=%.2f$' % (D, )
         ))
-        props = dict(boxstyle='round', facecolor=au.AUlightblue, edgecolor = au.AUblues, alpha=0.6)
-        ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14, verticalalignment='top', bbox=props)
-        plt.title("Network visualization", fontproperties= au.AUb, fontsize=18, color=au.AUblue)
-        plt.suptitle(self.growth_type + " Network", fontproperties= au.AUb, y=0.92, fontsize=14, color=au.AUlightblue)
+        
+        props = dict(boxstyle='round', facecolor=au.AUlightblue, 
+                     edgecolor = au.AUblues, alpha=0.8)
+        ax.text(0.05, 0.95, textstr, transform=ax.transAxes, 
+                fontsize=14, verticalalignment='top', color="white", bbox=props)
+        plt.title("Network visualization", fontproperties= au.AUb, 
+                  fontsize=18, color=au.AUlightblue)
+        plt.suptitle(self.growth_type.capitalize() + " Network", 
+                     fontproperties= au.AUb, y=0.92, 
+                     fontsize=14, color=au.AUlightblue)
+  
+        ax.set_facecolor('#212946')
+        ax.axis('off')
+        fig.set_facecolor('#212946')
         fig.tight_layout()
 
 
@@ -177,22 +262,32 @@ if __name__ == "__main__":
     n = Network("random")
     n.grow(97)
     n.calculate_numerical_probability_distribution()
+    n.analytical_distribution()
     n.calculate_clustering_coefficient()
     n.plot_network()
-    
+    n.plot_distribution()
     
  
-    n2 = Network("preferential")
-    n2.grow(97)
-    n2.calculate_numerical_probability_distribution()
-    n2.calculate_clustering_coefficient()
-    n2.plot_network()  
+# =============================================================================
+#     n2 = Network("preferential")
+#     n2.grow(97)
+#     n2.calculate_numerical_probability_distribution()
+#     n2.analytical_distribution()
+#     n2.calculate_clustering_coefficient()
+#     n2.plot_network()  
+#     n2.plot_distribution()
+#       
+#     n3 = Network("modified preferential")
+#     n3.grow(97)
+#     n3.calculate_numerical_probability_distribution()
+#     n3.analytical_distribution()
+#     n3.calculate_clustering_coefficient()
+#     n3.plot_network()  
+#     n3.plot_distribution()     
+# =============================================================================
       
       
-        
-        
-        
-        
+      
         
         
         
