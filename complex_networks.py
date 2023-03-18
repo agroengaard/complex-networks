@@ -9,6 +9,38 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import aulibrary as au
 
+class NetworkGrowthAnalysis:
+    """
+    ===========================================================================
+    || Class for creating an analysis of the growth of our Network object    ||
+    ===========================================================================
+    || INPUT:                                                                ||
+    ||    network_type (str) : The network type to create. Possible values   || 
+    ||                         are: "random", "preferential",                ||
+    ||                        "modified preferential" or "random modified".  ||         
+    ||    n_growth_it (int) : Number of growth iterations                    ||
+    ||=======================================================================||
+    """
+    def __init__(self, network_type : str, n_growth_it : int):
+        
+        self.network_types = ["random", "preferential", 
+                         "modified preferential", "random modified"]
+        
+        if network_type not in self.network_types : 
+           raise ValueError('Network type must be one of "%s"' % (self.network_types))
+        
+        self.n_growth_it = n_growth_it
+        self.network_type = network_type
+        
+        self.n = Network(network_type)
+        self.n.grow(self.n_growth_it)
+        self.n.calculate_numerical_probability_distribution()
+        self.n.analytical_distribution()
+        self.n.calculate_clustering_coefficient()
+        self.n.plot_network()
+        self.n.plot_distribution()
+
+
 
 class Network:
     """
@@ -18,6 +50,13 @@ class Network:
     ===========================================================================
     """
     def __init__(self, growth_type="random"):
+        
+        
+        self.network_types = ["random", "preferential", 
+                         "modified preferential", "random modified"]
+        
+        if growth_type not in self.network_types : 
+           raise ValueError('Growth type must be one of "%s"' % (self.network_types))
         
         print("Network initialized")
         
@@ -29,6 +68,7 @@ class Network:
         self.N     = 3                                   # Number of inital nodes
         self.L     = 3                                   # Number of initial links
         self.lamb3 = 1                                   # Lambda value (Problem 3)
+        
         
     def grow(self, add_growth_iterations, m=2):
         """
@@ -259,39 +299,16 @@ class Network:
 
 if __name__ == "__main__":
     
-# =============================================================================
-#     n = Network("random")
-#     n.grow(97)
-#     n.calculate_numerical_probability_distribution()
-#     n.analytical_distribution()
-#     n.calculate_clustering_coefficient()
-#     n.plot_network()
-#     n.plot_distribution()
-# =============================================================================
+    NetworkGrowthAnalysis("random", 97)
+    NetworkGrowthAnalysis("preferential", 97)
+    NetworkGrowthAnalysis("modified preferential", 97)
+    NetworkGrowthAnalysis("random modified", 97)
     
- 
-# =============================================================================
-#     n2 = Network("preferential")
-#     n2.grow(97)
-#     n2.calculate_numerical_probability_distribution()
-#     n2.analytical_distribution()
-#     n2.calculate_clustering_coefficient()
-#     n2.plot_network()  
-#     n2.plot_distribution()
-# =============================================================================
-      
-    n3 = Network("modified preferential")
-    n3.grow(97)
-    n3.calculate_numerical_probability_distribution()
-    n3.analytical_distribution()
-    n3.calculate_clustering_coefficient()
-    n3.plot_network()  
-    n3.plot_distribution()     
       
       
       
         
-        
+               
         
         
         
