@@ -3,7 +3,7 @@ A repository for containing complex networks exercises
 
 
 
-# Growth Exercise
+## Growth Exercise
 
 Here different network growth types are investigated: 
   1. Network growth (New node with m open links) with random attachment.
