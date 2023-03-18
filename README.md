@@ -30,4 +30,11 @@ nodes"
 </p>
 
 
+## 1. Random Network growth
+
+<p float="center">
+  <img src="./docs/2_preferential_network.png" width="400" />
+  <img src="./docs/2_preferential_network_distribution.png" width="400" /> 
+ 
+</p>
 
