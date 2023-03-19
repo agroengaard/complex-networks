@@ -298,16 +298,6 @@ class Network:
 
 
 
-if __name__ == "__main__":
-    
-    NetworkGrowthAnalysis("random", 97)
-    NetworkGrowthAnalysis("preferential", 97)
-    NetworkGrowthAnalysis("modified preferential", 97)
-    NetworkGrowthAnalysis("random modified", 97)
-    
-      
-      
-      
         
                
         
