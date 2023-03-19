@@ -33,7 +33,7 @@ class ClusteringDistribution:
               
         for t in self.test_types:
             for i in range(self.n_tests):
-                self.test_dict[t]["clustering"][i] = self.get_clustering(t, 97)
+                self.test_dict[t]["clustering"][i] = self.get_network_clustering(t, 97)
                 
             self.test_dict[t]["C_mean"] = np.mean(self.test_dict[t]["clustering"])
          
@@ -50,16 +50,20 @@ class ClusteringDistribution:
         fig.set_facecolor('#212946')
           
         plt.hist(self.test_dict["random"]["clustering"], bins = 20, 
-                 label='Random attachment', color=au.AUpink)
+                 label='Random attachment',
+                 color=au.AUpink, alpha=0.5)
         plt.hist(self.test_dict["preferential"]["clustering"], bins = 20, 
-                 label='BA Scale-Free (Preferential)')
+                 label='BA Scale-Free (Preferential)',
+                 color=au.AUgreen, alpha=0.5)
         plt.hist(self.test_dict["modified preferential"]["clustering"], bins = 20, 
-                 label='BA Scale-Free (Modified Preferential)')
+                 label='BA Scale-Free (Modified Preferential)',
+                 color=au.AUyellow, alpha=0.5)
         plt.hist(self.test_dict["random modified"]["clustering"], bins = 20, 
-                 label='Random Modified')
+                 label='Random Modified',
+                 color=au.AUblue2, alpha=0.5)
         
         plt.title("Histogram of Clustering Coefficients",
-                  fontproperties= au.AUb, 
+        #          fontproperties= au.AUb, 
                   fontsize=13, color=au.AUlightblue)
         plt.xlabel('Clustering Coefficient, C')
         plt.ylabel('Bin size')
@@ -74,6 +78,9 @@ class ClusteringDistribution:
         ax.yaxis.label.set_color(au.AUblue3)
         ax.tick_params(axis='x', colors=au.AUblue3)
         ax.tick_params(axis='y', colors=au.AUblue3)
+        ax.grid(which='major', color=au.AUbluegrey, linestyle='-', linewidth=0.7, alpha=0.5)
+        ax.grid(which='minor', color=au.AUbluegrey, linestyle='-.', linewidth=0.7, alpha=0.6)
+
         plt.show()
 
 
