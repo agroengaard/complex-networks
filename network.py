@@ -117,7 +117,7 @@ class Network:
             new[1::2] = Ln                                                     # New links vector
             self.links.extend(new)                                             # Adding new links to links    
         k_n = dict([[x, self.links.count(x)] for x in set(self.links)])        # Counting k for each node                     
-        self.ki = list(k_n.values())                                                # Getting the values    
+        self.ki = list(k_n.values())                                           # Getting the values    
 
         self.link_pairs = np.reshape(self.links, (self.L, 2))                  # Rearranging the links vector as pairs
 

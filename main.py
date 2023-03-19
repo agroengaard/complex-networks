@@ -21,4 +21,4 @@ if __name__ == "__main__":
     cd = ClusteringDistribution(1000)  
     cd.calculate_n_tests()  
     cd.plot_histogram()  
-    
+    test = cd.test_dict
