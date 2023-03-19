@@ -68,4 +68,4 @@ If all nodes are connected to each other directly with a link, this value is 1, 
 
 By instantiating alot of networks it is possible to find out how the clustering coefficient is statistically distributed, and the script "clusteringcoefficient.py" does exactly that. For example, by simulating 1000 networks for each type, we can find the mean clustering coefficient for each type of network growth, including its standard deviation.
 
-
+<img src="./docs/clustering.png" width="500">
