@@ -11,7 +11,7 @@ Here different network growth types are investigated:
       This works by drawing n random samples from the links vector and attach the new node to what the links is attached to.
       Thus nodes who already have many links will experience more growth.
   3. **Modified Preferential growth:**
-  4. **Random modified growth:** Network growth process with random link attachment
+  4. **Random modified growth:** Network growth process with random link attachment - meaning that for each growth iteration, a new node will appear and attach itself to each end/node of a randomly sampled link, effectively forming triangles all over.
 
 ## Plot Explanation
 
